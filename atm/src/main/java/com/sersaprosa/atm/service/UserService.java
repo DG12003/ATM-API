@@ -39,7 +39,7 @@ public class UserService {
         bankUser.setEmail(user.getEmail());
         bankUser.setPinNumber(user.getPinNumber());
 
-        userRepository.findBankUserByUserName(bankUser.getFirstName())
+        userRepository.findBankUserByFirstName(bankUser.getFirstName())
                 .ifPresent(s -> { throw new UserAlreadyExistsException("User already exists!");});
 
         Account account = new Account();
@@ -49,7 +49,7 @@ public class UserService {
         return bankUser;
     }
     public BankUser loginUser(AuthenticatedUserDto bankUser) {
-        return userRepository.findBankUserByUserNameAndPassword(bankUser.getFirstName(), bankUser.getPinNumber())
+        return userRepository.findBankUserByFirstNameAndPinNumber(bankUser.getFirstName(), bankUser.getPinNumber())
                 .stream()
                 .findFirst()
                 .orElseThrow(() -> new UserNotFoundException("Bad credentials!"));
