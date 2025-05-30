@@ -4,6 +4,7 @@ import com.sersaprosa.atm.dto.AuthenticatedUserDto;
 import com.sersaprosa.atm.dto.UserDto;
 import com.sersaprosa.atm.model.BankUser;
 import com.sersaprosa.atm.service.UserService;
+import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ public class AuthenticationController {
         this.userService = userService;
     }
     @PostMapping("/v1/register")
-    public ResponseEntity<UserDto> registerUser(@RequestBody AuthenticatedUserDto bankUser) {
+    public ResponseEntity<UserDto> registerUser(@Valid @RequestBody AuthenticatedUserDto bankUser) {
         BankUser registeredBankUser = userService.registerUser(bankUser);
 
         UserDto userDto = modelMapper.map(registeredBankUser, UserDto.class);
@@ -31,7 +32,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/v1/login")
-    public ResponseEntity<UserDto> loginUser(@RequestBody AuthenticatedUserDto bankUser) {
+    public ResponseEntity<UserDto> loginUser(@Valid @RequestBody AuthenticatedUserDto bankUser) {
         BankUser loggedBankUser = userService.loginUser(bankUser);
 
         UserDto userDto = modelMapper.map(loggedBankUser, UserDto.class);
