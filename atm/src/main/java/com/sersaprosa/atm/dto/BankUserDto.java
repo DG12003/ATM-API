@@ -7,5 +7,8 @@ import lombok.Setter;
 @Setter
 public class BankUserDto {
     private Integer id;
-    private String username;
+    private String firstName;
+    private String secondName;
+    private String email;
+    private String pinNumber;
 }
