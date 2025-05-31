@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserService {
@@ -55,12 +56,12 @@ public class UserService {
                 .orElseThrow(() -> new UserNotFoundException("Bad credentials!"));
     }
 
-    public Account getUserDetails(Integer id) {
+    public Account getUserDetails(UUID id) {
         return accountRepository.findAccountByBankUserId(id)
                 .orElseThrow(() -> new UserNotFoundException(NOT_FOUND_MESSAGE));
     }
     @Transactional
-    public Transaction createDepositTransaction(Integer id, BigDecimal amount) {
+    public Transaction createDepositTransaction(UUID id, BigDecimal amount) {
         Account bankUserAccount = accountRepository.findAccountByBankUserId(id)
                 .orElseThrow(() -> new UserNotFoundException(NOT_FOUND_MESSAGE));
 
@@ -73,7 +74,7 @@ public class UserService {
     }
 
     @Transactional
-    public Transaction createWithdrawTransaction(Integer id, BigDecimal amount) {
+    public Transaction createWithdrawTransaction(UUID id, BigDecimal amount) {
         Account bankUserAccount = accountRepository.findAccountByBankUserId(id)
                 .orElseThrow(() -> new UserNotFoundException(NOT_FOUND_MESSAGE));
 
@@ -88,7 +89,7 @@ public class UserService {
         return transaction;
     }
 
-    public Transaction createTransferTransaction(Integer id1, Integer id2, BigDecimal amount) {
+    public Transaction createTransferTransaction(UUID id1, UUID id2, BigDecimal amount) {
         Account senderAccount = accountRepository.findAccountByBankUserId(id1)
                 .orElseThrow(() -> new UserNotFoundException(NOT_FOUND_MESSAGE));
 
@@ -122,7 +123,7 @@ public class UserService {
         return sendTransaction;
     }
 
-    public List<Transaction> getBankStatement(Integer id, LocalDateTime startDate, LocalDateTime endDate) {
+    public List<Transaction> getBankStatement(UUID id, LocalDateTime startDate, LocalDateTime endDate) {
         if (accountRepository.findAccountByBankUserId(id).isEmpty())
             throw new UserNotFoundException(NOT_FOUND_MESSAGE);
 
@@ -143,11 +144,11 @@ public class UserService {
     }
 
     @Transactional
-    public void shotDownUserBankAccount(String id) {
-        BankUser bankUser = userRepository.findById(Integer.parseInt(id))
+    public void shotDownUserBankAccount(UUID id) {
+        BankUser bankUser = userRepository.findById(UUID.fromString(String.valueOf(id)))
                 .orElseThrow(() -> new UserNotFoundException(NOT_FOUND_MESSAGE));
 
-        Account account = accountRepository.findAccountByBankUserId(Integer.parseInt(id))
+        Account account = accountRepository.findAccountByBankUserId(UUID.fromString(String.valueOf(id)))
                 .orElseThrow(() -> new UserNotFoundException(NOT_FOUND_MESSAGE));
 
         List<Transaction> transactions = transactionRepository.getTransactionsByAccountId(account.getId());
