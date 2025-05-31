@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,15 +18,14 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "transaction")
 public class Transaction {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     private LocalDateTime timestamp;
     @Column(name = "trValue")
     private BigDecimal value;
     @Enumerated(EnumType.STRING)
     private TransactionType transactionType;
-    private Integer fromIdAccount;
-    private Integer toIdAccount;
+    private UUID fromIdAccount;
+    private UUID toIdAccount;
 }

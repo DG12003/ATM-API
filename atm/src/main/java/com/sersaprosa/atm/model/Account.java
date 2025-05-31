@@ -6,6 +6,8 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.UUID;
+
 @AllArgsConstructor
 @Getter
 @Setter
@@ -15,10 +17,9 @@ import java.util.List;
 @Component
 @Table(name = "account")
 public class Account {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     @OneToOne(cascade = CascadeType.ALL)
     private BankUser bankUser;
     private BigDecimal balance;
