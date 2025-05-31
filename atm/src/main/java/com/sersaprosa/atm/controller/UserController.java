@@ -19,11 +19,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/v1/users")
 public class UserController {
-
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
     private final UserService userService;
 
-    public UserController(UserService userService) {
+    public UserController(ModelMapper modelMapper,UserService userService) {
+        this.modelMapper = modelMapper;
         this.userService = userService;
     }
 
@@ -88,9 +88,4 @@ public class UserController {
 
         return new ResponseEntity<>("Bank account closed",HttpStatus.OK);
     }
-
-
-
-
-
 }
