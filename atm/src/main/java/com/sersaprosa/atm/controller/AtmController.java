@@ -7,6 +7,8 @@ import com.sersaprosa.atm.model.BankUser;
 import com.sersaprosa.atm.model.Transaction;
 import com.sersaprosa.atm.service.AtmService;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/v1/bank")
 public class AtmController {
+    private static final Logger log = LoggerFactory.getLogger(AtmController.class);
     private final ModelMapper modelMapper;
     private final AtmService atmService;
 
@@ -32,29 +35,31 @@ public class AtmController {
 
     @GetMapping("/users")
     public ResponseEntity<List<BankUserDto>> getUsersList() {
+        log.info("Consultando todos los Usuarios");
         List<BankUser> bankUserList = atmService.getAllUsers();
-
         List<BankUserDto> bankUserDtoList = bankUserList.stream()
                 .map(user -> modelMapper.map(user, BankUserDto.class))
                 .toList();
-
+        log.info("Finalizando Consulta de Usuarios");
         return new ResponseEntity<>(bankUserDtoList, HttpStatus.OK);
     }
     @GetMapping("/accounts")
     public ResponseEntity<List<AccountDto>> getUsersAccountList() {
+        log.info("Consultando todas las Cuentas");
         List<Account> accountList = atmService.getAllUsersAccount();
 
         List<AccountDto> accountDtoList = accountList.stream()
                 .map(account -> modelMapper.map(account, AccountDto.class))
                 .toList();
-
+        log.info("Finalizando Consulta de Cuentas");
         return new ResponseEntity<>(accountDtoList, HttpStatus.OK);
     }
 
     @GetMapping("/transactions")
     public ResponseEntity<List<Transaction>> getTransactionList() {
+        log.info("Inicia Consulta de Transacciones");
         List<Transaction> accountList = atmService.getAllTransactions();
-
+        log.info("Finalizando Consulta de Transacciones");
         return new ResponseEntity<>(accountList, HttpStatus.OK);
     }
 

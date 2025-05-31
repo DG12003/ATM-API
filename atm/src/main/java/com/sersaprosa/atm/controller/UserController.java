@@ -35,10 +35,11 @@ public class UserController {
 
         return new ResponseEntity<>(accountDto, HttpStatus.OK);
     }
-    @PatchMapping("/deposit")
+    @PatchMapping(path ="/deposit", produces = "application/json")
     public ResponseEntity<BasicTransactionDto> createUserDeposit(
             @RequestParam String id,
-            @RequestParam String amount) {
+            @RequestParam String amount,
+            @RequestParam("pinNumber") String pinNumber) {
         Transaction transaction = userService.createDepositTransaction(Integer.parseInt(id),new BigDecimal(amount));
 
         BasicTransactionDto basicTransactionDto = modelMapper.map(transaction, BasicTransactionDto.class);
@@ -46,10 +47,11 @@ public class UserController {
         return new ResponseEntity<>(basicTransactionDto, HttpStatus.CREATED);
     }
 
-    @PatchMapping("/withdraw")
+    @PatchMapping(path ="/withdraw", produces = "application/json")
     public ResponseEntity<BasicTransactionDto> createUserWithdraw(
             @RequestParam String id,
-            @RequestParam String amount) {
+            @RequestParam String amount,
+            @RequestParam("pinNumber") String pinNumber) {
         Transaction transaction = userService.createWithdrawTransaction(Integer.parseInt(id),new BigDecimal(amount));
 
         BasicTransactionDto basicTransactionDto = modelMapper.map(transaction, BasicTransactionDto.class);
