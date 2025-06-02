@@ -1,0 +1,183 @@
+{
+	"info": {
+		"_postman_id": "3bb95d50-2ffd-4a92-b8d8-d0ce9e8c5a5e",
+		"name": "ATM-Postman-Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45468181",
+		"_collection_link": "https://carlosalexander.postman.co/workspace/Carlos-Alexander-'s-Workspace~bfb24620-9c49-4f49-87fb-b994b92125bf/collection/45468181-3bb95d50-2ffd-4a92-b8d8-d0ce9e8c5a5e?action=share&source=collection_link&creator=45468181"
+	},
+	"item": [
+		{
+			"name": "Consulta Usuarios",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n\r\n }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/bank/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"bank",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Registrar Usuario",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n        \"firstName\": \"Maria Alejandra\",\r\n        \"secondName\": \"Perez Ochoa\",\r\n        \"email\": \"perezochoa@gmail.com\",\r\n        \"pinNumber\":\"4567\"\r\n\r\n }\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Realizar Deposito - Exitoso",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/users/deposit?id=b268de9a-245b-4eef-b240-c53f793bee9f&amount=30&pinNumber=3456",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"users",
+						"deposit"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "b268de9a-245b-4eef-b240-c53f793bee9f"
+						},
+						{
+							"key": "amount",
+							"value": "30"
+						},
+						{
+							"key": "pinNumber",
+							"value": "3456"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Realizar Retiro - Exitoso",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/users/withdraw?id=b268de9a-245b-4eef-b240-c53f793bee9f&amount=10&pinNumber=3456",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"users",
+						"withdraw"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "b268de9a-245b-4eef-b240-c53f793bee9f"
+						},
+						{
+							"key": "amount",
+							"value": "10"
+						},
+						{
+							"key": "pinNumber",
+							"value": "3456"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Realizar Deposito - Incorrecto",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/users/deposit?id=1&amount=20",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"users",
+						"deposit"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						},
+						{
+							"key": "amount",
+							"value": "20"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
